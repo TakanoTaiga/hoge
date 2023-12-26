@@ -10,5 +10,5 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run Tectonic
-        run: ./build.sh
+      - name: Run script
+        run: chmod +x ./build.sh && ./build.sh
