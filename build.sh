@@ -33,8 +33,9 @@ python3.11 -m pip install -U \
 
 # clone ros2_m1_native
 git clone https://github.com/TakanoTaiga/ros2_m1_native.git
+cd ${HOME}/ros2_m1_native
 mkdir ${HOME}/ros2_m1_native/src
-cd ${HOME}/ros2_m1_native/
+vcs import src < ros2.repos
 
 patch -l < patches/ros2_console_bridge_vendor.patch
 patch -l < patches/ros2_rviz_ogre_vendor.patch
