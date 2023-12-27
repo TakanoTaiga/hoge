@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+conda create --name=ros python3.10 --yes
+conda activate ros
 cd $HOME
 
 # Check if brew is installed.
@@ -17,12 +19,12 @@ brew install \
 brew uninstall --ignore-dependencies python@3.12 qt6
 
 # install dep at pip
-python3.11 -m pip install -U pip
-python3.11 -m pip install --global-option=build_ext \
+python3 -m pip install -U pip
+python3 -m pip install --global-option=build_ext \
        --global-option="-I$(brew --prefix graphviz)/include/" \
        --global-option="-L$(brew --prefix graphviz)/lib/" \
        pygraphviz
-python3.11 -m pip install -U \
+python3 -m pip install -U \
       argcomplete catkin_pkg colcon-common-extensions coverage \
       cryptography empy==3.3.4 flake8 flake8-blind-except==0.1.1 flake8-builtins \
       flake8-class-newline flake8-comprehensions flake8-deprecated \
@@ -35,7 +37,7 @@ python3.11 -m pip install -U \
 git clone https://github.com/TakanoTaiga/ros2_m1_native.git
 cd ${HOME}/ros2_m1_native
 mkdir ${HOME}/ros2_m1_native/src
-python3.11 -m vcs import src < ros2.repos
+vcs import src < ros2.repos
 
 patch -l < patches/ros2_console_bridge_vendor.patch
 patch -l < patches/ros2_rviz_ogre_vendor.patch
@@ -44,7 +46,7 @@ patch -l < patches/ros2_rviz_ogre_vendor.patch
 export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$(brew --prefix qt@5)
 export PATH=$PATH:$(brew --prefix qt@5)/bin
 export COLCON_EXTENSION_BLOCKLIST=colcon_core.event_handler.desktop_notification
-python3.11 -m colcon build --symlink-install --cmake-args \
+python3 -m colcon build --symlink-install --cmake-args \
             -DBUILD_TESTING=OFF \
             -DTHIRDPARTY=FORCE \
             -DCMAKE_BUILD_TYPE=Release \
