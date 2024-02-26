@@ -11,4 +11,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Run script
-        run: chmod +x ./build.sh && ./build.sh
+        run: chmod +x ./install.sh && ./install.sh
